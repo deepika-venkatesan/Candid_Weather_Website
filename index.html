@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="cssfinal.css"> 
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Candid Weather</title>
+    <link href='https://fonts.googleapis.com/css?family=Nova Flat' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    
+
+        <header class="Head" >
+            <div class="inner">
+                <div class="logo">
+                    <div class="logo-div">
+                        
+                        <img id="logo" src="Black_And_White_Modern_Vintage_Retro_Brand_Logo_1.png" alt="Google logo">
+                        
+                    </div>
+                </div>
+                
+                <nav class="navigation">
+                    <li id="list1"><span class="list-span"><a href="" class="list-a">About</a></span></li>
+                    <li id="list2"><span class="list-span"><a class="button" type="button" onclick="window.scrollTo(0, document.body.scrollHeight);">Contact</a></span></li>
+                
+                </nav>
+            </div>
+        </header>
+    <main class="main">
+        
+        <header class="search">
+            <input type="text" autocomplete="off" class="search-box" placeholder="Search for a city..." id = 'city-search'>
+        </header>
+    
+        <div class="outer-container">
+            <div class="container">
+                <div class="card">
+                    <h2><i class="fa fa-map-marker"> </i>  <span id="location1">Enter a City name</span></h2>
+                    <h6 id = 'weather1'> cloudy</h6>
+                    <h4><span id = 'temp1'> hello world </span></h4>
+                    <img src="" id = 'icon1'>
+                    
+                </div>
+            </div>
+            <div class="container">
+                <div class="card">
+                    <h2><i class="fa fa-map-marker"> </i>  <span id="location2">Enter a City name</span></h2>
+                    <h6 id = 'weather2'> cloudy</h6>
+                    <h4><span id = 'temp2'> hello world </span></h4>
+                    <img src="" id = 'icon2'>
+                    
+                </div>
+            </div>    
+            <div class="container">
+                <div class="card">
+                    <h2><i class="fa fa-map-marker"> </i>  <span id="location3">Enter a City name</span></h2>
+                    <h6 id = 'weather3'> cloudy</h6>
+                    <h4><span id = 'temp3'> hello world </span></h4>
+                    <img src="" id = 'icon3'>
+                    
+                </div>
+            </div>
+            <div class="container">
+                <div class="card">
+                    <h2><i class="fa fa-map-marker"> </i>  <span id="location4">Enter a City name</span></h2>
+                    <h6 id = 'weather4'> cloudy</h6>
+                    <h4><span id = 'temp4'> hello world </span></h4>
+                    <img src="" id = 'icon4'>
+                    
+                </div>
+            </div>
+        </main>
+        <div class="dk-footer-box-info">
+        <a href="index.html" class="footer-logo">
+            <img src="footer_logo_2.png" alt="footer_logo" class="img-fluid">
+        </a>
+        <p class="footer-info-text">
+            A change in the weather is sufficient to recreate the world and ourselves.
+
+            - Marcel Proust
+        </p>
+        <div class="footer-social-link">
+            <h3>Follow us</h3>
+            <ul class="social-links">
+                <li class="footer-li">
+                    <a href="https://www.linkedin.com/in/ajay-tibrewal/" class="footer-a">
+                        <i class="fa fa-linkedin"></i>
+                    </a>
+                </li>
+                <li class="footer-li">
+                    <a href="https://www.instagram.com/ajay.tibrewal.75/" class="footer-a">
+                        <i class="fa fa-instagram"></i>
+                    </a>
+                </li>
+                <li id="list-divider">
+                    
+                </li>
+                <li >
+                <li class="footer-li">
+                    <a href="https://www.linkedin.com/in/deepika-venkatesan/" class="footer-a">
+                        <i class="fa fa-linkedin"></i>
+                    </a>
+                </li>
+                <li class="footer-li">
+                    <a href="https://www.instagram.com/_deepikav_/" class="footer-a">
+                        <i class="fa fa-instagram"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+    </div>
+        
+
+
+</body>
+
+<script type="text/javascript">
+    async function getapi(cityname, box) {
+        link = 'https://api.openweathermap.org/data/2.5/weather?q=' + cityname + '&appid=66a2cd8e8863d81954f9be17865b909f'
+
+        const response = await fetch(link).then((response)=>{if(!response.ok){
+        document.getElementById('location').innerHTML = "City not Found";
+        
+    }
+    return response});
+    
+    data = await response.json();
+    console.log(data);
+    document.getElementById('weather' +box).innerHTML = data.weather[0].description;
+    document.getElementById('temp' + box).innerHTML = Math.round(data.main.temp - 273.15);
+    document.getElementById('location'+ box).innerHTML = data.name;
+    document.getElementById('icon'+ box).src = "http://openweathermap.org/img/w/" + data.weather[0].icon + ".png";
+}
+    let city1  = 'New York';
+    let city2  = 'London';
+    let city3  = 'Kochi';
+    let city4  = 'Sydney';
+    var data1 = getapi(city1, '1');
+    var data2 = getapi(city2,'2');
+    var data3 = getapi(city3, '3');
+    var data4 = getapi(city4, '4');
+    const searchbox = document.getElementById('city-search');
+    searchbox.addEventListener('keypress',Change);
+    function Change(evt){
+    if (evt.keyCode == 13) {
+        
+        let cityname = searchbox.value;
+        cityname = cityname.toLowerCase(); 
+        
+        getapi(cityname,'1')
+        
+        
+      }
+}
+</script>
+</html>
